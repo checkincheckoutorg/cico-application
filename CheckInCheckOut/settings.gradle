@@ -3,8 +3,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url "https://dl.bintray.com/drummer-aidan/maven/" }
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
+
 rootProject.name = "CheckInCheckOut"
 include ':app'
