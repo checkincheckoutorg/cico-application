@@ -12,9 +12,7 @@ public interface INodeJS {
     Observable<String> registerUser(@Field("email") String email,
                                     @Field("firstName") String firstName,
                                     @Field("lastName") String lastName,
-                                    @Field("password") String password,
-                                    @Field("age") int age,
-                                    @Field("admin") boolean admin);
+                                    @Field("password") String password);
 
     @POST("login")
     @FormUrlEncoded
