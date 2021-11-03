@@ -7,6 +7,12 @@
     android:background="@color/black"
     tools:context=".LoginActivity">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/gohan"/>
+
     <TextView
         android:id="@+id/signin"
         android:layout_width="match_parent"
