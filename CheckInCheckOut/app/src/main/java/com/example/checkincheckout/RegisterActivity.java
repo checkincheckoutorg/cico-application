@@ -23,8 +23,9 @@ public class RegisterActivity extends AppCompatActivity {
     INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    TextView username, password, confirmedPassword, firstName, lastName;
+    TextView username, password, confirmedPassword, firstName, lastName, age;
     String typedUsername;
+    boolean admin;
     MaterialButton btn_register;
 
     @Override
@@ -62,17 +63,25 @@ public class RegisterActivity extends AppCompatActivity {
         firstName = (TextView) findViewById(R.id.first_name);
         lastName = (TextView) findViewById(R.id.last_name);
         btn_register = (MaterialButton) findViewById(R.id.btn_register);
+        age = (TextView) findViewById(R.id.age);
+
 
         //Event
-        btn_register.setOnClickListener(v -> registerUser(username.getText().toString(), password.getText().toString(), confirmedPassword.getText().toString(), firstName.getText().toString(), lastName.getText().toString()));
+        btn_register.setOnClickListener(v -> registerUser(
+                username.getText().toString(),
+                password.getText().toString(),
+                confirmedPassword.getText().toString(),
+                firstName.getText().toString(),
+                lastName.getText().toString(),
+                Integer.parseInt(age.getText().toString())));
     }
 
-    private void registerUser(String email, String password, String confirmedPassword, String firstName, String lastName) {
+    private void registerUser(String email, String password, String confirmedPassword, String firstName, String lastName, int age) {
         if (!password.equals(confirmedPassword)) {
             Toast.makeText(RegisterActivity.this, "Passwords do not match! " + password + " and " + confirmedPassword, Toast.LENGTH_SHORT).show();
             return;
         }
-        compositeDisposable.add(myAPI.registerUser(email,password, firstName, lastName)
+        compositeDisposable.add(myAPI.registerUser(email, firstName, lastName, password, age, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
