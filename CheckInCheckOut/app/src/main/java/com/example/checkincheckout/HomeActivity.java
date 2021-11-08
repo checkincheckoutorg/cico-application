@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
 
     TextView username, password;
     String typedUsername;
-    MaterialButton btn_login, btn_register;
+    MaterialButton btn_logout;
 
     @Override
     protected void onStop() {
@@ -48,6 +48,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //View
         username = (TextView) findViewById(R.id.email);
+        btn_logout = (MaterialButton) findViewById(R.id.btn_logout);
 
         //Set
         typedUsername = getIntent().getExtras().getString("Name");
@@ -55,5 +56,13 @@ public class HomeActivity extends AppCompatActivity {
 
         //view
         username = (TextView) findViewById(R.id.email);
+        //Logout
+        btn_logout.setOnClickListener(v -> {
+            Toast.makeText(HomeActivity.this, "Logout Successful!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        });
+
     }
 }

@@ -7,51 +7,48 @@
     android:background="#4C4A4A"
     tools:context=".RegisterActivity">
 
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gifImageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="84dp"
-        android:layout_alignTop="@+id/password"
-        android:layout_marginTop="407dp"
-        android:src="@drawable/gohanwrite" />
+        android:layout_height="match_parent" >
 
-    <ImageView
-        android:layout_width="104dp"
-        android:layout_height="115dp"
-        android:layout_alignTop="@+id/gifImageView"
-        android:layout_marginTop="-625dp"
-        android:src="@drawable/splashlogin" />
-
-    <TextView
-        android:id="@+id/register"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="333dp"
-        android:layout_margin="50dp"
-        android:gravity="center"
-        android:text="@string/register"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/register"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#50ffffff"
-        android:hint="Email"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        <ImageView
+            android:layout_width="135dp"
+            android:layout_height="133dp"
+            android:src="@mipmap/splashlogo_foreground" />
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="192dp"
+            android:layout_marginTop="333dp"
+            android:layout_margin="50dp"
+            android:gravity="center"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#50ffffff"
+            android:hint="Email"
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
     <EditText
         android:layout_width="match_parent"
@@ -83,18 +80,20 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/first_name"
-        android:layout_below="@+id/confirm_password"
-        android:background="#50ffffff"
-        android:hint="First Name"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="20dp" />
+        <EditText
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirm_password"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#50ffffff"
+            android:hint="First Name"
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
     <EditText
         android:layout_width="match_parent"
@@ -109,11 +108,24 @@
         android:layout_marginTop="10dp"
         android:padding="20dp" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/age"
+        android:layout_below="@+id/last_name"
+        android:background="#50ffffff"
+        android:hint="Age"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="20dp" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_below="@id/last_name"
+        android:layout_below="@id/age"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
@@ -121,5 +133,9 @@
         android:layout_marginBottom="30dp"
         android:backgroundTint="#E91E63"
         android:text="@string/register" />
+
+    </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
