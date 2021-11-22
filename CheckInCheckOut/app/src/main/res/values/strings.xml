@@ -5,4 +5,10 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="logout">Logout</string>
+    <string name="LookForBooks">Look for Books</string>
+    <string-array name="filters">
+        <item>Title</item>
+        <item>Author</item>
+        <item>Genre</item>
+    </string-array>
 </resources>

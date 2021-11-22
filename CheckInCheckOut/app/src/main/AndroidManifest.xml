@@ -11,6 +11,9 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.CheckInCheckOut" >
         <activity
+            android:name=".SearchActivity"
+            android:exported="true" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
