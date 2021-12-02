@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <ImageView
             android:layout_width="135dp"
             android:layout_height="133dp"
@@ -75,4 +76,11 @@
         android:layout_marginBottom="90dp"
         android:backgroundTint="#E91E63"
         android:text="@string/logout" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="match_parent"
+        android:layout_height="442dp"
+        android:layout_marginTop="277dp"
+        android:src="@drawable/gokuhouse" />
 </RelativeLayout>
