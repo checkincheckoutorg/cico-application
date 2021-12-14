@@ -1,49 +1,43 @@
 package com.example.checkincheckout.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.checkincheckout.CheckOutActivity;
-import com.example.checkincheckout.HomeActivity;
+import com.example.checkincheckout.CheckInActivity;
 import com.example.checkincheckout.Interface.IBookClickListener;
-import com.example.checkincheckout.Model.Book;
+import com.example.checkincheckout.Model.CheckedOutBook;
 import com.example.checkincheckout.R;
 import com.example.checkincheckout.SearchActivity;
 
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> {
+public class DroppedOffBookAdapter extends RecyclerView.Adapter<DroppedOffBookAdapter.MyViewHolder> {
 
     SearchActivity mSearchActivity;
 
     Context context;
-    List<Book> bookList;
+    List<CheckedOutBook> bookList;
 
-    public BookAdapter(Activity activity, Context context, List<Book> bookList) {
+    public DroppedOffBookAdapter(Context context, List<CheckedOutBook> bookList) {
         this.context = context;
         this.bookList = bookList;
-        mSearchActivity = (SearchActivity) activity;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.book_item, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.checked_out_book_item, viewGroup, false);
         return new MyViewHolder(itemView);
     }
 
@@ -57,6 +51,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
         holder.stock.setText(String.format("Stock: %s", bookList.get(i).getStock()));
         holder.isbn.setText(String.format("ISBN: %s", bookList.get(i).getIsbn()));
         Glide.with(holder.front_cover.getContext()).load(bookList.get(i).getFront_cover()).into(holder.front_cover);
+        holder.email.setText(String.format("Email attached to book: %s", bookList.get(i).getEmail()));
         /*holder.front_cover.setText(bookList.get(i).getFront_cover());*/
 
         if(i % 2 == 0)
@@ -69,7 +64,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
                 //bookList.get(position).getTitle()
                 //Toast.makeText(context, ""+bookList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(context, CheckOutActivity.class);
+                Intent i = new Intent(context, CheckInActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("ID", bookList.get(position).getId());
                 i.putExtra("Title", bookList.get(position).getTitle());
@@ -79,7 +74,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
                 i.putExtra("Stock", bookList.get(position).getStock());
                 i.putExtra("ISBN", bookList.get(position).getIsbn());
                 i.putExtra("Front Cover", bookList.get(position).getFront_cover());
-                i.putExtra("Username", mSearchActivity.getUsername());
+                //i.putExtra("Username", mSearchActivity.getUsername());
+                i.putExtra("Email attached to book", bookList.get(position).getEmail());
+                i.putExtra("History Id", bookList.get(position).getHistory_id());
 
                 context.startActivity(i);
             }
@@ -94,7 +91,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CardView root_view;
-        TextView title, author, genre, book_type, stock, isbn;
+        TextView title, author, genre, book_type, stock, isbn, email;
         ImageView front_cover;
 
         IBookClickListener bookClickListener;
@@ -114,6 +111,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
             stock = (TextView) itemView.findViewById(R.id.text_stock);
             isbn = (TextView) itemView.findViewById(R.id.text_isbn);
             front_cover = (ImageView) itemView.findViewById(R.id.cover_image);
+            email = (TextView) itemView.findViewById(R.id.text_email);
 
             itemView.setOnClickListener(this);
         }

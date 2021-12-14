@@ -1,6 +1,5 @@
 package com.example.checkincheckout;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,19 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.checkincheckout.Adapter.BookAdapter;
-import com.example.checkincheckout.Model.Book;
+import com.example.checkincheckout.Adapter.DroppedOffBookAdapter;
 import com.example.checkincheckout.Retrofit.INodeJS;
 import com.example.checkincheckout.Retrofit.RetrofitClient;
-import com.google.android.material.button.MaterialButton;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -41,7 +36,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     RecyclerView recycler_search;
     LinearLayoutManager layoutManager;
     BookAdapter adapter;
+    DroppedOffBookAdapter co_adapter;
     Spinner spinner;
+    String user;
 
     MaterialSearchBar materialSearchBar;
     List<String> suggestList = new ArrayList<>();
@@ -75,6 +72,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         myAPI = retrofit.create(INodeJS.class);
 
         //View
+        user = (String) getIntent().getExtras().getString("Name");
+
         recycler_search = (RecyclerView) findViewById(R.id.recycler_search);
         recycler_search.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -138,7 +137,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(books -> {
-                    adapter = new BookAdapter(books);
+                    adapter = new BookAdapter(SearchActivity.this, getBaseContext(), books);
                     recycler_search.setAdapter(adapter);
                 }, throwable -> Toast.makeText(SearchActivity.this, "Not Found", Toast.LENGTH_SHORT).show()));
     }
@@ -148,7 +147,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(books -> {
-            adapter = new BookAdapter(books);
+            adapter = new BookAdapter(SearchActivity.this, getBaseContext(), books);
             recycler_search.setAdapter(adapter);
         }, throwable -> Toast.makeText(SearchActivity.this, "Not Found", Toast.LENGTH_SHORT).show()));
     }
@@ -165,11 +164,16 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String filter = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), filter, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(parent.getContext(), filter, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public String getUsername(){
+        user = (String) getIntent().getExtras().getString("Name");
+        return user;
     }
 }

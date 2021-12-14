@@ -90,12 +90,23 @@ public class LoginActivity extends AppCompatActivity {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(s -> {
                 if(s.contains("encrypted_password")) {
-                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                    // Maybe here is where we can move to next activity after login
-                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                    i.putExtra("Name", username.getText().toString());
-                    startActivity(i);
-                    finish();
+
+                    // Here is a check for admin
+                    if (s.contains("admin_status\":1")) {
+                        Toast.makeText(LoginActivity.this, "Admin Login Successful!", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(LoginActivity.this, AdminActivity.class);
+                        i.putExtra("Name", username.getText().toString());
+                        startActivity(i);
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                        i.putExtra("Name", username.getText().toString());
+                        startActivity(i);
+                        finish();
+                    }
                 }
                 else {
                     Toast.makeText(LoginActivity.this, ""+s, Toast.LENGTH_SHORT).show();

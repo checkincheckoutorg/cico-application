@@ -11,6 +11,21 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.CheckInCheckOut" >
         <activity
+            android:name=".CheckedOutBooksActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CheckInActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AdminSearchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CheckOutActivity"
+            android:exported="true" />
+        <activity
             android:name=".SearchActivity"
             android:exported="true" />
         <activity

@@ -1,9 +1,11 @@
 package com.example.checkincheckout.Retrofit;
 
 import com.example.checkincheckout.Model.Book;
+import com.example.checkincheckout.Model.CheckedOutBook;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 import retrofit2.http.Field;
@@ -34,5 +36,21 @@ public interface INodeJS {
     Observable<List<Book>> searchBooks(@Field("search") String search,
                                        @Field("filter") String filter);
 
+    @POST("checkoutBook")
+    @FormUrlEncoded
+    Observable<String> checkoutBook(@Field("id") Integer id,
+                                    @Field("email") String user);
 
+    @GET("getDroppedOffBooks")
+    Observable<List<CheckedOutBook>> getDroppedOffBooks();
+
+    @POST("checkInBook")
+    @FormUrlEncoded
+    Observable<String> checkInBook(@Field("book_id") Integer book_id,
+                                   @Field("history_id") Integer history_id);
+
+
+    @POST("getCheckedOutBooksByUser")
+    @FormUrlEncoded
+    Observable<List<Book>> getCheckedOutBooksByUser(@Field("email") String email);
 }

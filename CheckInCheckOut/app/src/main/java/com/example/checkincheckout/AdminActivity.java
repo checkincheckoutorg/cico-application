@@ -11,17 +11,19 @@ import com.example.checkincheckout.Retrofit.INodeJS;
 import com.example.checkincheckout.Retrofit.RetrofitClient;
 import com.google.android.material.button.MaterialButton;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-public class HomeActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity {
 
     INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     TextView username, password;
     String typedUsername;
-    MaterialButton btn_logout, btn_searchbooks, btn_see_ckd_out_books;
+    MaterialButton btn_dropped_off_books, btn_logout;
 
     @Override
     protected void onStop() {
@@ -38,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_admin_home);
 
         //init API
         Retrofit retrofit = RetrofitClient.getInstance();
@@ -47,8 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         //View
         username = (TextView) findViewById(R.id.email);
         btn_logout = (MaterialButton) findViewById(R.id.btn_logout);
-        btn_searchbooks = (MaterialButton) findViewById(R.id.btn_search);
-        btn_see_ckd_out_books = (MaterialButton) findViewById(R.id.btn_see_ckd_out_books);
+        btn_dropped_off_books = (MaterialButton) findViewById(R.id.btn_dropped_off_books);
 
         //Set
         typedUsername = getIntent().getExtras().getString("Name");
@@ -59,22 +60,15 @@ public class HomeActivity extends AppCompatActivity {
 
         //Logout button
         btn_logout.setOnClickListener(v -> {
-            Toast.makeText(HomeActivity.this, "Logout Successful!", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+            Toast.makeText(AdminActivity.this, "Logout Successful!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(AdminActivity.this, LoginActivity.class);
             startActivity(i);
             finish();
         });
 
-        //Look for Books button
-        btn_searchbooks.setOnClickListener(v -> {
-            Intent i = new Intent(HomeActivity.this, SearchActivity.class);
-            i.putExtra("Name", username.getText().toString());
-            startActivity(i);
-        });
-
-        // see checked out books
-        btn_see_ckd_out_books.setOnClickListener(v -> {
-            Intent i = new Intent(HomeActivity.this, CheckedOutBooksActivity.class);
+        //Books ready to be checked in
+        btn_dropped_off_books.setOnClickListener(v -> {
+            Intent i = new Intent(AdminActivity.this, AdminSearchActivity.class);
             i.putExtra("Name", username.getText().toString());
             startActivity(i);
         });
